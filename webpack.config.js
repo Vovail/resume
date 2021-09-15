@@ -8,7 +8,7 @@ module.exports = (env) => ({
   output: {
     path: path.join(__dirname, 'dist'),
   },
-  mode: env.NODE_ENV,
+  mode: env.NODE_ENV || 'production',
   devtool: 'source-map',
   target: ['web', 'es5'],
   module: {

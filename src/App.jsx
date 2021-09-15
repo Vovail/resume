@@ -1,10 +1,11 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import { CircularProgress, CssBaseline } from '@material-ui/core';
 import Home from './Home/components/Home';
-import Profile from './Profile/components/Profile';
-import ResumeList from './List/components/ResumeList';
 import Layout from '~/Layout/components/Layout';
+
+const Profile = lazy(() => import(/* webpackChunkName: "profile.chunk" */ './Profile/components/Profile'));
+const ResumeList = lazy(() => import(/* webpackChunkName: "resume-list.chunk" */ './List/components/ResumeList'));
 
 const App = () => {
   return (
@@ -18,10 +19,14 @@ const App = () => {
                 <Home />
               </Route>
               <Route path="/profile">
-                <Profile />
+                <Suspense fallback={<CircularProgress color="secondary" />}>
+                  <Profile />
+                </Suspense>
               </Route>
               <Route path="/list">
-                <ResumeList />
+                <Suspense fallback={<CircularProgress color="secondary" />}>
+                  <ResumeList />
+                </Suspense>
               </Route>
               <Redirect from="*" to="/home" />
             </Layout>

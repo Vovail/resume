@@ -7,7 +7,7 @@ const useProfile = () => {
   const apiClient = useApiClient();
   const setPending = useSetRecoilState(pendingProfileState);
   const [profile, setProfile] = useRecoilState(profileState);
-
+  
   const getProfile = async () => {
     try {
       setPending(true);
