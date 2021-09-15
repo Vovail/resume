@@ -22,9 +22,9 @@ const useStyles = makeStyles(({ spacing, transitions, palette }) => ({
   drawerSpace: {
     paddingLeft: DRAWER_WIDTH + spacing(3),
   },
-  main: {
-    backgroundColor: palette.grey[200],
-  },
+  // main: {
+  //   backgroundColor: palette.grey[200],
+  // },
 }));
 
 const Layout = ({ children }) => {
