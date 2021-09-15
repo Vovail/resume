@@ -3,10 +3,10 @@ name: Deploy to firebase
 on:
   push:
     branches:
-      - develop
-  pull_request:
-    branches:
-      - develop
+      - develop2
+  #pull_request:
+  #  branches:
+  #    - develop
 
 jobs:
   deploy:
