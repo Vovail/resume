@@ -1,18 +1,27 @@
 import { useEffect } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import useApiClient from '~/hooks/useApiClient';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import { pendingProfileState, profileState } from '../store';
+import { userEmailState } from '~/store';
 
 const useProfile = () => {
-  const apiClient = useApiClient();
+  const user = useRecoilValue(userEmailState);
   const setPending = useSetRecoilState(pendingProfileState);
   const [profile, setProfile] = useRecoilState(profileState);
-  
+
   const getProfile = async () => {
+    const db = getFirestore();
+    const docRef = doc(db, 'users', user);
+
     try {
       setPending(true);
-      const { data } = await apiClient.get('assets/profile.json');
-      setProfile(data);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        setProfile(docSnap.data());
+        console.log('Document data:', docSnap.data());
+      } else {
+        console.log('No such document!');
+      }
     } catch (error) {
       console.error(error);
     } finally {
@@ -21,8 +30,8 @@ const useProfile = () => {
   };
 
   useEffect(() => {
-    getProfile();
-  }, []);
+    user && getProfile();
+  }, [user]);
 
   return profile;
 };
