@@ -1,24 +1,29 @@
-import { Box, Typography, makeStyles, useTheme } from '@material-ui/core';
+import { Box, Typography, Paper, makeStyles, useTheme, useMediaQuery } from '@material-ui/core';
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import CVAside from './CVAside';
+import CVWorkExperience from './CVWorkExperience';
 
-// const useStyles = makeStyles(() => ({
-//   cvHeader: {
-//     display: 'flex',
-//     height: 50,
-//     alignItems: 'center',
-//   },
-//   aside: {
-//     width: 200,
-//   },
-// }));
+const useStyles = makeStyles(({ spacing }) => ({
+  paper: {
+    padding: spacing(2),
+    marginBottom: spacing(2),
+  },
+  mb: {
+    marginBottom: spacing(2),
+  },
+  photo: {
+    borderRadius: '50%',
+    maxWidth: '100%',
+  },
+}));
 
 const CV = ({ profile }) => {
-  // const classes = useStyles();
+  const classes = useStyles();
   const theme = useTheme();
-  const { firstName, secondName, position, skills, photo, contacts } = useMemo(() => profile || {}, [profile]);
+  const isSMview = useMediaQuery('(min-width: 600px)');
+  const { firstName, secondName, position, skills, photo, contacts, summary, expirience } = useMemo(() => profile || {}, [profile]);
 
   if (!profile) {
     return (
@@ -29,16 +34,26 @@ const CV = ({ profile }) => {
   }
 
   return (
-    <Box display="flex" alignItems="stretch">
+    <Box display="flex" flexDirection={isSMview ? 'row' : 'column'} alignItems="stretch">
+      {!isSMview && (
+        <Box mb={2} display="flex" justifyContent="center">
+          <img src={photo} alt="users photo" className={classes.photo} />
+        </Box>
+      )}
       <CVAside photo={photo} skills={skills} contacts={contacts} />
-      <Box display="flex" flexDirection="column" flex="1">
-        <Box component="header" mb={2} px={1} py={2} bgcolor={theme.palette.grey[100]}>
+      <Box display="flex" flexDirection="column" flex="1" bgcolor={theme.palette.grey[100]} p={2}>
+        <Paper component="header" className={classes.paper}>
           <Typography variant="h4">
             {firstName} {secondName}
           </Typography>
           <Typography variant="subtitle1">{position}</Typography>
+        </Paper>
+        <Box flex="1">
+          <Paper component="section" className={classes.paper}>
+            {summary}
+          </Paper>
+          <CVWorkExperience experience={expirience} />
         </Box>
-        <Box bgcolor={theme.palette.grey[100]} flex="1"></Box>
       </Box>
     </Box>
   );
