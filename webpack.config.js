@@ -1,7 +1,8 @@
 /* eslint-disable no-undef */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
+// const CopyPlugin = require('copy-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = (env) => ({
   entry: path.join(__dirname, 'src', 'index.jsx'),
@@ -34,14 +35,17 @@ module.exports = (env) => ({
       template: path.join(__dirname, 'src', 'index.html'),
       favicon: './src/assets/favicon.ico',
     }),
-    new CopyPlugin({
-      patterns: [
-        {
-          from: path.join(__dirname, 'src', 'assets', 'data'),
-          to: path.join(__dirname, 'dist', 'assets'),
-        },
-      ],
-    }),
+    // new CopyPlugin({
+    //   patterns: [
+    //     {
+    //       from: path.join(__dirname, 'src', 'assets', 'data'),
+    //       to: path.join(__dirname, 'dist', 'assets'),
+    //     },
+    //   ],
+    // }),
+    new Dotenv({
+      path: './.env'
+    })
   ],
   resolve: {
     extensions: ['.js', '.jsx'],
