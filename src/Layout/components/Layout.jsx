@@ -9,7 +9,7 @@ import { DRAWER_WIDTH } from '../constant';
 import { useRecoilValue } from 'recoil';
 import { isOpenDrawerState } from '../store';
 
-const useStyles = makeStyles(({ spacing, transitions, palette }) => ({
+const useStyles = makeStyles(({ spacing, transitions }) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
@@ -21,10 +21,7 @@ const useStyles = makeStyles(({ spacing, transitions, palette }) => ({
   },
   drawerSpace: {
     paddingLeft: DRAWER_WIDTH + spacing(3),
-  },
-  // main: {
-  //   backgroundColor: palette.grey[200],
-  // },
+  },  
 }));
 
 const Layout = ({ children }) => {
