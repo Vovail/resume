@@ -1,11 +1,12 @@
 import React from 'react';
 import cx from 'classnames';
-import { AppBar, Toolbar, Typography, IconButton, makeStyles } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, IconButton, Box, makeStyles, useMediaQuery } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { headerTitleState, isOpenDrawerState } from '../store';
-import { DRAWER_WIDTH } from '../constant';
+import { DRAWER_WIDTH, PAGES } from '../constant';
 import { capitalize } from '~/utils';
+import DownloadMenu from './DownloadMenu';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -31,12 +32,19 @@ const useStyles = makeStyles((theme) => ({
   mb: {
     marginBottom: theme.spacing(2),
   },
+  printHide: {
+    display: 'none',
+  },
+  downloadBtn: {
+    marginLeft: 'auto',
+  },
 }));
 
 const Header = () => {
   const classes = useStyles();
   const headerTitle = useRecoilValue(headerTitleState);
   const [isDrawerOpen, setIsDrawerOpen] = useRecoilState(isOpenDrawerState);
+  const printView = useMediaQuery('print');
 
   const handleDrawerOpen = () => {
     setIsDrawerOpen((state) => !state);
@@ -47,6 +55,7 @@ const Header = () => {
       <AppBar
         className={cx(classes.appBar, {
           [classes.appBarShift]: isDrawerOpen,
+          [classes.printHide]: printView,
         })}
       >
         <Toolbar>
@@ -54,6 +63,7 @@ const Header = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6">{capitalize(headerTitle)}</Typography>
+          <Box marginLeft="auto">{headerTitle === PAGES.Home && <DownloadMenu />}</Box>
         </Toolbar>
       </AppBar>
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 import { Box, Typography, Paper, makeStyles, Button } from '@material-ui/core';
 import { useRecoilState } from 'recoil';
 import { formatDateForPeriod } from '~/utils';
@@ -38,9 +39,9 @@ const CVWorkExperience = ({ experience }) => {
   const [workExpirienceShortView, setWorkExpirienceShortView] = useRecoilState(workExperienceShortViewState);
 
   return (
-    <Paper component="section" mb={2} className={classes.wrapper}>
+    <Paper component="section" mb={2} className={classes.wrapper} elevation={0}>
       <Button
-        className={classes.switchButton}
+        className={cx(classes.switchButton, 'hide-for-print')}
         size="small"
         variant="outlined"
         onClick={() => {

@@ -21,10 +21,14 @@ const ContactIcon = ({ name, ...rest }) => {
 const useStyles = makeStyles(({ spacing, breakpoints }) => ({
   aside: {
     width: 250,
+    [breakpoints.down('sm')]: {
+      flex: '1 0 200px',
+    },
     [breakpoints.down('xs')]: {
       order: 3,
       width: 'auto',
       margin: 0,
+      padding: spacing(2, 4),
     },
   },
   photo: {
@@ -83,8 +87,7 @@ const CVAside = ({ photo, skills, contacts }) => {
             <Box component="ul" className={classes.list}>
               {contacts.map((contact) => (
                 <Box component="li" key={contact.name}>
-                  <Box display="flex" alignItems="center">
-                    {/* <Box mr={1}>{getContactIcon(contact.name)}</Box> */}
+                  <Box display="flex" alignItems="center">                    
                     <Box mr={1}>
                       <ContactIcon name={contact.name} />
                     </Box>

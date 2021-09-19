@@ -14,30 +14,28 @@ const App = () => {
   return (
     <>
       <CssBaseline />
-      <React.StrictMode>
-        {isConfigured && (
-          <Router basename="/">
-            <Switch>
-              <Layout>
-                <Route path="/home">
-                  <Home />
-                </Route>
-                <Route path="/profile">
-                  <Suspense fallback={<CircularProgress color="secondary" />}>
-                    <Profile />
-                  </Suspense>
-                </Route>
-                <Route path="/list">
-                  <Suspense fallback={<CircularProgress color="secondary" />}>
-                    <ResumeList />
-                  </Suspense>
-                </Route>
-                <Redirect from="*" to="/home" />
-              </Layout>
-            </Switch>
-          </Router>
-        )}
-      </React.StrictMode>
+      {isConfigured && (
+        <Router basename="/">
+          <Switch>
+            <Layout>
+              <Route path="/home">
+                <Home />
+              </Route>
+              <Route path="/profile">
+                <Suspense fallback={<CircularProgress color="secondary" />}>
+                  <Profile />
+                </Suspense>
+              </Route>
+              <Route path="/list">
+                <Suspense fallback={<CircularProgress color="secondary" />}>
+                  <ResumeList />
+                </Suspense>
+              </Route>
+              <Redirect from="*" to="/home" />
+            </Layout>
+          </Switch>
+        </Router>
+      )}
     </>
   );
 };
