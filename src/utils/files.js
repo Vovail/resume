@@ -30,21 +30,20 @@ export const downloadHTMLElementAsPDF = async (htmlElement, filename) => {
   const pdf = new jsPDF({ unit: 'mm' });
   pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
   heightLeft -= pageHeight;
-
   while (heightLeft >= 0) {
     position = heightLeft - imgHeight;
     pdf.addPage();
     pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
     heightLeft -= pageHeight;
   }
-  pdf.save(fileName);
+  await pdf.save(fileName);
 };
 
 export const downloadHTMLElementAsImage = async (htmlElement, filename, type = 'png') => {
   if (!htmlElement) return;
   const fileName = filename
     ? `${filename}.${type}`
-    : `resume-${new Date().toLocaleString('default', { year: 'numeric', month: '2-digit' })}.${type}`;  
+    : `resume-${new Date().toLocaleString('default', { year: 'numeric', month: '2-digit' })}.${type}`;
   const canvas = await html2canvas(htmlElement, { scale: 2, ignoreElements: (e) => e.classList.contains('hide-for-print') });
   const imgData = canvas.toDataURL(`image/${type}`);
   downloadFile(imgData, fileName);
