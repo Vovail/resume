@@ -8,7 +8,13 @@ module.exports = (env) => ({
   entry: path.join(__dirname, 'src', 'index.jsx'),
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: '[name].[contenthash].js'
+    filename: '[name].[contenthash].js',
+    clean: true
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
   },
   mode: env.NODE_ENV || 'production',
   devtool: 'source-map',
