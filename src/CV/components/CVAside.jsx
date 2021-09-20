@@ -22,7 +22,7 @@ const useStyles = makeStyles(({ spacing, breakpoints }) => ({
   aside: {
     width: 250,
     [breakpoints.down('sm')]: {
-      flex: '1 0 200px',
+      width: 200,
     },
     [breakpoints.down('xs')]: {
       order: 3,
@@ -87,7 +87,7 @@ const CVAside = ({ photo, skills, contacts }) => {
             <Box component="ul" className={classes.list}>
               {contacts.map((contact) => (
                 <Box component="li" key={contact.name}>
-                  <Box display="flex" alignItems="center">                    
+                  <Box display="flex" alignItems="center">
                     <Box mr={1}>
                       <ContactIcon name={contact.name} />
                     </Box>
