@@ -30,12 +30,16 @@ const useStyles = makeStyles(({ spacing, typography, breakpoints }) => ({
       display: 'none',
     },
   },
+  fixPosition: {
+    position: 'fixed',
+  },
 }));
 
 const CV = ({ profile }) => {
   const classes = useStyles();
   const theme = useTheme();
   const isSMview = useMediaQuery('(min-width: 600px)');
+  const isMDview = useMediaQuery('(min-width: 960px)');
   const cvRef = useRef();
   const setCvRefState = useSetRecoilState(cvRefState);
   const isFileDownloading = useRecoilValue(isFileDownloadingState);
@@ -56,7 +60,7 @@ const CV = ({ profile }) => {
 
   return (
     <Box>
-      {isFileDownloading && <WaitMessage />}
+      {isFileDownloading && <WaitMessage className={classes.fixPosition} />}
       <div ref={cvRef}>
         <Box display="flex" flexDirection={isSMview ? 'row' : 'column'} alignItems="stretch">
           {!isSMview && (
@@ -81,7 +85,7 @@ const CV = ({ profile }) => {
                 <Typography variant="h6" className={classes.title}>
                   Languages
                 </Typography>
-                <Box display="flex" flexDirection={isSMview ? 'row' : 'column'}>
+                <Box display="flex" flexDirection={isMDview ? 'row' : 'column'}>
                   {languages.map((item, i) => (
                     <React.Fragment key={item.language}>
                       <Box mb={1} minWidth="100px">
