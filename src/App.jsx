@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
 import { CircularProgress, CssBaseline } from '@material-ui/core';
 import Home from './Home/components/Home';
 import Layout from '~/Layout/components/Layout';
@@ -16,24 +16,28 @@ const App = () => {
       <CssBaseline />
       {isConfigured && (
         <Router basename="/">
-          <Switch>
-            <Layout>
-              <Route path="/home">
-                <Home />
-              </Route>
-              <Route path="/profile">
-                <Suspense fallback={<CircularProgress color="secondary" />}>
-                  <Profile />
-                </Suspense>
-              </Route>
-              <Route path="/list">
-                <Suspense fallback={<CircularProgress color="secondary" />}>
-                  <ResumeList />
-                </Suspense>
-              </Route>
-              <Redirect from="*" to="/home" />
-            </Layout>
-          </Switch>
+          <Layout>
+            <Routes>
+              <Route path="/home" element={<Home />} />
+              <Route
+                path="/profile"
+                element={
+                  <Suspense fallback={<CircularProgress color="secondary" />}>
+                    <Profile />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/list"
+                element={
+                  <Suspense fallback={<CircularProgress color="secondary" />}>
+                    <ResumeList />
+                  </Suspense>
+                }
+              />
+              <Route path="*" element={<Navigate to='/home' />} />
+            </Routes>
+          </Layout>
         </Router>
       )}
     </>
