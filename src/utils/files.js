@@ -18,7 +18,7 @@ export const downloadHTMLElementAsPDF = async (htmlElement, filename) => {
   if (!htmlElement) return;
   const fileName = filename
     ? `${filename}.pdf`
-    : `resume-${new Date().toLocaleString('default', { year: 'numeric', month: '2-digit' })}.pdf`;
+    : `cv-${new Date().toLocaleString('default', { year: 'numeric', month: '2-digit' })}.pdf`;
   const canvas = await html2canvas(htmlElement, { scale: 2, ignoreElements: (e) => e.classList.contains('hide-for-print') });
   const imgData = canvas.toDataURL('image/png');
   const imgWidth = 210;
@@ -43,8 +43,8 @@ export const downloadHTMLElementAsImage = async (htmlElement, filename, type = '
   if (!htmlElement) return;
   const fileName = filename
     ? `${filename}.${type}`
-    : `resume-${new Date().toLocaleString('default', { year: 'numeric', month: '2-digit' })}.${type}`;
-  const canvas = await html2canvas(htmlElement, { scale: 2, ignoreElements: (e) => e.classList.contains('hide-for-print') });
+    : `cv-${new Date().toLocaleString('default', { year: 'numeric', month: '2-digit' })}.${type}`;
+  const canvas = await html2canvas(htmlElement, { scale: 3, ignoreElements: (e) => e.classList.contains('hide-for-print') });
   const imgData = canvas.toDataURL(`image/${type}`);
   downloadFile(imgData, fileName);
 };

@@ -60,25 +60,8 @@ const CVAside = ({ photo, skills, contacts }) => {
     <Box p={2} className={classes.aside} component="aside" mr={1} bgcolor={theme.palette.grey[300]} position="relative">
       <Box position="sticky" top="100px">
         {isSMview && (
-          <Box mb={2} display="flex" justifyContent="center">
+          <Box mb={2} display="flex" justifyContent="center" className='hide-for-print'>
             <img src={photo} alt="users photo" className={classes.photo} />
-          </Box>
-        )}
-        {skills && (
-          <Box mb={2}>
-            <Typography variant="subtitle1">Skills</Typography>
-            <Box component="ul" className={classes.list}>
-              {skills.map((skill) => (
-                <Box component="li" key={skill.name}>
-                  <Box display="flex" alignItems="center" justifyContent="space-between">
-                    <Typography component="div" variant="caption">
-                      {skill.name}
-                    </Typography>
-                    <LinearProgress className={classes.skillProgress} variant="determinate" value={skill.level * 100} />
-                  </Box>
-                </Box>
-              ))}
-            </Box>
           </Box>
         )}
         {contacts && (
@@ -109,6 +92,23 @@ const CVAside = ({ photo, skills, contacts }) => {
             </Box>
           </Box>
         )}
+        {skills && (
+          <Box mb={2}>
+            <Typography variant="subtitle1">Skills</Typography>
+            <Box component="ul" className={classes.list}>
+              {skills.map((skill) => (
+                <Box component="li" key={skill.name}>
+                  <Box display="flex" alignItems="center" justifyContent="space-between">
+                    <Typography component="div" variant="caption">
+                      {skill.name}
+                    </Typography>
+                    <LinearProgress className={classes.skillProgress} variant="determinate" value={skill.level * 100} />
+                  </Box>
+                </Box>
+              ))}
+            </Box>
+          </Box>
+        )}        
       </Box>
     </Box>
   );

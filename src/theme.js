@@ -7,7 +7,7 @@ export default createTheme({
         html: {
           '@media print': {
             '& .hide-for-print': {
-              display: 'none',
+              display: 'none !important',
             },
           },
         },
