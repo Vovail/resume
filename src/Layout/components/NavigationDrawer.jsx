@@ -4,11 +4,9 @@ import { useRecoilValue } from 'recoil';
 import { Link } from 'react-router-dom';
 import { headerTitleState, isOpenDrawerState } from '../store';
 import { DRAWER_WIDTH, PAGES } from '../constant';
-import { capitalize } from '~/utils';
 
 const useStyles = makeStyles(() => ({
-  drawer: {
-    width: DRAWER_WIDTH,
+  drawer: {    
     flexShrink: 0,
   },
   drawerPaper: {

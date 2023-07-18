@@ -22,6 +22,10 @@ const useStyles = makeStyles(({ spacing, transitions }) => ({
   drawerSpace: {
     paddingLeft: DRAWER_WIDTH + spacing(3),
   },  
+  main: {
+    display: 'flex',
+    alignItems: 'stretch'
+  }
 }));
 
 const Layout = ({ children }) => {

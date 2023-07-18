@@ -43,7 +43,7 @@ const CV = ({ profile }) => {
   const cvRef = useRef();
   const setCvRefState = useSetRecoilState(cvRefState);
   const isFileDownloading = useRecoilValue(isFileDownloadingState);
-  const { firstName, secondName, position, skills, photo, contacts, summary, expirience, languages } = useMemo(
+  const { firstName, secondName, position, skills, photo, contacts, summary, experience, languages } = useMemo(
     () => profile || {},
     [profile],
   );
@@ -80,7 +80,7 @@ const CV = ({ profile }) => {
               <Paper component="section" className={classes.paper} elevation={0}>
                 {summary}
               </Paper>
-              <CVWorkExperience experience={expirience} />
+              <CVWorkExperience experience={experience} />
               <Paper component="section" className={classes.paper} elevation={0}>
                 <Typography variant="h6" className={classes.title}>
                   Languages
