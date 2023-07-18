@@ -36,7 +36,7 @@ const useStyles = makeStyles(({ spacing, typography, palette }) => ({
 
 const CVWorkExperience = ({ experience }) => {
   const classes = useStyles();
-  const [workExpirienceShortView, setWorkExpirienceShortView] = useRecoilState(workExperienceShortViewState);
+  const [workExperienceShortView, setWorkExperienceShortView] = useRecoilState(workExperienceShortViewState);
 
   return (
     <Paper component="section" mb={2} className={classes.wrapper} elevation={0}>
@@ -45,15 +45,15 @@ const CVWorkExperience = ({ experience }) => {
         size="small"
         variant="outlined"
         onClick={() => {
-          setWorkExpirienceShortView((state) => !state);
+          setWorkExperienceShortView((state) => !state);
         }}
       >
-        {workExpirienceShortView ? 'Show Details' : 'Hide Details'}
+        {workExperienceShortView ? 'Show Details' : 'Hide Details'}
       </Button>
       <Typography variant="h6" className={classes.title}>
         Experience
       </Typography>
-      {!experience && <>Work Expirience data is not available</>}
+      {!experience && <>Work Experience data is not available</>}
       {experience &&
         experience.map((work, index) => (
           <Box key={work.company + index} mb={2}>
@@ -68,7 +68,7 @@ const CVWorkExperience = ({ experience }) => {
                 Projects:
               </Typography>
               {work.projects.map((project) => (
-                <WorkingProject key={project.timePeriod.from} project={project} shortView={workExpirienceShortView} />
+                <WorkingProject key={project.timePeriod.from} project={project} shortView={workExperienceShortView} />
               ))}
             </Box>
           </Box>

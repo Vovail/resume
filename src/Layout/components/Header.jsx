@@ -67,7 +67,7 @@ const Header = () => {
         </Toolbar>
       </AppBar>
 
-      <Toolbar className={classes.mb} />
+      <Toolbar className={cx(classes.mb, printView && classes.printHide)} />
     </>
   );
 };

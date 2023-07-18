@@ -64,7 +64,7 @@ const CV = ({ profile }) => {
       <div ref={cvRef}>
         <Box display="flex" flexDirection={isSMview ? 'row' : 'column'} alignItems="stretch">
           {!isSMview && (
-            <Box mb={2} display="flex" justifyContent="center">
+            <Box mb={2} display="flex" justifyContent="center" className="hide-for-print">
               <img src={photo} alt="users photo" className={classes.photo} />
             </Box>
           )}
