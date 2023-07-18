@@ -29,8 +29,8 @@ const useProfile = () => {
   };
 
   useEffect(() => {
-    user && getProfile();
-  }, [user]);
+    user && !profile && getProfile();
+  }, [user, profile]);
 
   return profile;
 };
