@@ -1,12 +1,15 @@
 import React from 'react';
 import cx from 'classnames';
-import { AppBar, Toolbar, Typography, IconButton, Box, makeStyles, useMediaQuery } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, IconButton, Box, makeStyles, useMediaQuery, Tooltip } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { headerTitleState, isOpenDrawerState } from '../store';
 import { DRAWER_WIDTH, PAGES } from '../constant';
 import { capitalize } from '~/utils';
 import DownloadMenu from './DownloadMenu';
+import useSignOut from '~/Auth/hooks/useSignOut';
+import { authenticatedUserState } from '~/Auth/store';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -43,8 +46,10 @@ const useStyles = makeStyles((theme) => ({
 const Header = () => {
   const classes = useStyles();
   const headerTitle = useRecoilValue(headerTitleState);
+  const authenticatedUser = useRecoilValue(authenticatedUserState);
   const [isDrawerOpen, setIsDrawerOpen] = useRecoilState(isOpenDrawerState);
   const printView = useMediaQuery('print');
+  const signOut = useSignOut();
 
   const handleDrawerOpen = () => {
     setIsDrawerOpen((state) => !state);
@@ -63,7 +68,14 @@ const Header = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6">{capitalize(headerTitle)}</Typography>
-          <Box marginLeft="auto">{headerTitle === PAGES.Home && <DownloadMenu />}</Box>
+          <Box marginLeft="auto" display='flex'>
+            {headerTitle === PAGES.Home && <DownloadMenu />}
+            {!!authenticatedUser && <Tooltip title="Sign out">
+              <IconButton color="inherit" aria-label="open drawer" onClick={signOut} edge="start" className={cx(classes.menuButton)}>
+                <ExitToAppIcon />
+              </IconButton>
+            </Tooltip>}
+          </Box>
         </Toolbar>
       </AppBar>
 
