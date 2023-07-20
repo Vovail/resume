@@ -10,6 +10,7 @@ import { capitalize } from '~/utils';
 import DownloadMenu from './DownloadMenu';
 import useSignOut from '~/Auth/hooks/useSignOut';
 import { authenticatedUserState } from '~/Auth/store';
+import useUserReset from '~/Auth/hooks/useUserReset';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -50,6 +51,12 @@ const Header = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useRecoilState(isOpenDrawerState);
   const printView = useMediaQuery('print');
   const signOut = useSignOut();
+  const reset = useUserReset();
+
+  const handleLogOut = async () => {
+    await signOut();
+    reset();
+  }
 
   const handleDrawerOpen = () => {
     setIsDrawerOpen((state) => !state);
@@ -71,7 +78,7 @@ const Header = () => {
           <Box marginLeft="auto" display='flex'>
             {headerTitle === PAGES.Home && <DownloadMenu />}
             {!!authenticatedUser && <Tooltip title="Sign out">
-              <IconButton color="inherit" aria-label="open drawer" onClick={signOut} edge="start" className={cx(classes.menuButton)}>
+              <IconButton color="inherit" aria-label="open drawer" onClick={handleLogOut} edge="start" className={cx(classes.menuButton)}>
                 <ExitToAppIcon />
               </IconButton>
             </Tooltip>}

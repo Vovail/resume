@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
-import { pendingProfileState, profileState } from '../store';
+import { pendingProfileState, profileState, uploadedProfileState } from '../store';
 import { authenticatedUserState } from '~/Auth/store';
 
 const useProfile = () => {
   const user = useRecoilValue(authenticatedUserState);
   const setPending = useSetRecoilState(pendingProfileState);
+  const [uploadedProfile, setUploadedProfile] = useRecoilState(uploadedProfileState);
   const [profile, setProfile] = useRecoilState(profileState);
 
   const getProfile = async () => {
@@ -18,6 +19,7 @@ const useProfile = () => {
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         setProfile(docSnap.data());
+        setUploadedProfile(true);
       } else {
         console.log('No such document!');
       }
@@ -29,8 +31,8 @@ const useProfile = () => {
   };
 
   useEffect(() => {
-    user && !profile && getProfile();
-  }, [user, profile]);
+    user && !uploadedProfile && getProfile();
+  }, [user, uploadedProfile]);
 
   return profile;
 };
