@@ -27,8 +27,8 @@ export const downloadHTMLElementAsPDF = async (htmlElement, filename) => {
   let heightLeft = imgHeight;
   let position = 0;
 
-  const pdf = new jsPDF({ unit: 'mm' });
-  pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+  const pdf = new jsPDF({ unit: 'mm', compress: true });
+  pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight, '', 'FAST');
   heightLeft -= pageHeight;
   while (heightLeft >= 0) {
     position = heightLeft - imgHeight;
