@@ -6,6 +6,7 @@ import { useRecoilState } from 'recoil';
 import { formatDateForPeriod } from '~/utils';
 import WorkingProject from './WorkingProject';
 import { workExperienceShortViewState } from '../store';
+import { PDF_BLOCK_CLASS_NAME } from '~/constants';
 
 const useStyles = makeStyles(({ spacing, typography, palette }) => ({
   wrapper: {
@@ -18,14 +19,15 @@ const useStyles = makeStyles(({ spacing, typography, palette }) => ({
     marginBottom: spacing(1),
   },
   timePeriod: {
+    display: 'block',
     color: palette.text.secondary,
+    marginBottom: spacing(2),
   },
   fontBold: {
     fontWeight: typography.fontWeightBold,
   },
   subtitle: {
     fontWeight: typography.fontWeightBold,
-    marginBottom: spacing(),
   },
   switchButton: {
     position: 'absolute',
@@ -50,25 +52,25 @@ const CVWorkExperience = ({ experience }) => {
       >
         {workExperienceShortView ? 'Show Details' : 'Hide Details'}
       </Button>
-      <Typography variant="h6" className={classes.title}>
+      <Typography variant="h6" className={cx(PDF_BLOCK_CLASS_NAME, classes.title)}>
         Experience
       </Typography>
       {!experience && <>Work Experience data is not available</>}
       {experience &&
         experience.map((work, index) => (
           <Box key={work.company + index} mb={2}>
-            <Typography variant="subtitle1" className={classes.fontBold}>
+            <Typography variant="subtitle1" className={cx(PDF_BLOCK_CLASS_NAME, classes.fontBold)}>
               {work.company}
             </Typography>
-            <Typography variant="caption" className={classes.timePeriod}>{`${formatDateForPeriod(
+            <Typography variant="caption" className={cx(PDF_BLOCK_CLASS_NAME, classes.timePeriod)}>{`${formatDateForPeriod(
               work.timePeriod.from,
             )} - ${formatDateForPeriod(work.timePeriod.to)}`}</Typography>
-            <Box my={2} pl={2}>
-              <Typography variant="subtitle1" className={classes.subtitle}>
+            <Box pl={2}>
+              <Typography variant="subtitle1" className={cx(PDF_BLOCK_CLASS_NAME, classes.subtitle)} >
                 Projects:
               </Typography>
               {work.projects.map((project) => (
-                <WorkingProject key={project.timePeriod.from} project={project} shortView={workExperienceShortView} />
+                <WorkingProject key={project.timePeriod.from} project={project} shortView={workExperienceShortView} className={PDF_BLOCK_CLASS_NAME} />
               ))}
             </Box>
           </Box>
