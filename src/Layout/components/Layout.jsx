@@ -8,6 +8,7 @@ import NavigationDrawer from './NavigationDrawer';
 import { DRAWER_WIDTH } from '../constant';
 import { useRecoilValue } from 'recoil';
 import { isOpenDrawerState } from '../store';
+import { CV_MAIN_BLOCK_CLASS_NAME } from '~/constants';
 
 const useStyles = makeStyles(({ spacing, transitions }) => ({
   container: {
@@ -21,7 +22,7 @@ const useStyles = makeStyles(({ spacing, transitions }) => ({
   },
   drawerSpace: {
     paddingLeft: DRAWER_WIDTH + spacing(3),
-  },  
+  },
   main: {
     display: 'flex',
     alignItems: 'stretch'
@@ -36,7 +37,7 @@ const Layout = ({ children }) => {
     <Container fixed className={cx(classes.container, isDrawerOpen && classes.drawerSpace)}>
       <Header />
 
-      <Box component="main" flex="1" className={classes.main}>
+      <Box component="main" flex="1" className={cx(CV_MAIN_BLOCK_CLASS_NAME, classes.main)}>
         <NavigationDrawer />
         {children}
       </Box>

@@ -1,5 +1,6 @@
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
+import { addPageBreaksForPdf, restorePageBreaks } from './dom';
 
 export const downloadFile = (url, filename) => {
   const a = document.createElement('a');
@@ -16,6 +17,7 @@ export const downloadFile = (url, filename) => {
 
 export const downloadHTMLElementAsPDF = async (htmlElement, filename) => {
   if (!htmlElement) return;
+  const updatedElements = addPageBreaksForPdf();
   const fileName = filename
     ? `${filename}.pdf`
     : `cv-${new Date().toLocaleString('default', { year: 'numeric', month: '2-digit' })}.pdf`;
@@ -37,6 +39,7 @@ export const downloadHTMLElementAsPDF = async (htmlElement, filename) => {
     heightLeft -= pageHeight;
   }
   await pdf.save(fileName);
+  restorePageBreaks(updatedElements);
 };
 
 export const downloadHTMLElementAsImage = async (htmlElement, filename, type = 'png') => {

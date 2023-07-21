@@ -1,12 +1,14 @@
 import React, { useEffect, useMemo, useRef } from 'react';
 import { Box, Typography, Paper, Divider, makeStyles, useTheme, useMediaQuery } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 import Loader from '~/components/Loader';
 import CVAside from './CVAside';
 import CVWorkExperience from './CVWorkExperience';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { cvRefState, isFileDownloadingState } from '../store';
 import WaitMessage from '~/components/WaitMessage';
+import { PDF_BLOCK_CLASS_NAME } from '~/constants';
 
 const useStyles = makeStyles(({ spacing, typography, breakpoints }) => ({
   paper: {
@@ -70,18 +72,18 @@ const CV = ({ profile }) => {
           )}
           <CVAside photo={photo} skills={skills} contacts={contacts} />
           <Box display="flex" flexDirection="column" flex="1" bgcolor={theme.palette.grey[100]} p={2}>
-            <Paper component="header" className={classes.paper} elevation={0}>
+            <Paper component="header" className={cx(PDF_BLOCK_CLASS_NAME, classes.paper)} elevation={0}>
               <Typography variant="h4">
                 {firstName} {secondName}
               </Typography>
               <Typography variant="subtitle1">{position}</Typography>
             </Paper>
             <Box flex="1">
-              <Paper component="section" className={classes.paper} elevation={0}>
+              <Paper component="section" className={cx(PDF_BLOCK_CLASS_NAME, classes.paper)} elevation={0}>
                 {summary}
               </Paper>
               <CVWorkExperience experience={experience} />
-              <Paper component="section" className={classes.paper} elevation={0}>
+              <Paper component="section" className={cx(PDF_BLOCK_CLASS_NAME, classes.paper)} elevation={0}>
                 <Typography variant="h6" className={classes.title}>
                   Languages
                 </Typography>

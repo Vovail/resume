@@ -1,13 +1,16 @@
 import { Box, Typography, Divider, makeStyles } from '@material-ui/core';
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 import { formatDateForPeriod } from '~/utils';
+import { PDF_BLOCK_CLASS_NAME } from '~/constants';
 
 const useStyles = makeStyles(({ spacing, typography, palette }) => ({
   fontWeightBold: {
     fontWeight: typography.fontWeightBold,
   },
   timePeriod: {
+    display: 'block',
     color: palette.text.secondary,
   },
   projectName: {
@@ -25,23 +28,23 @@ const WorkingProject = ({ project, shortView }) => {
   const classes = useStyles();
 
   return (
-    <Box component="article" mb={2}>
-      <Typography variant="subtitle1" className={classes.projectName}>
+    <Box component="article" mb={2} >
+      <Typography variant="subtitle1" className={cx(PDF_BLOCK_CLASS_NAME, classes.projectName)}>
         {project.name}
       </Typography>
-      <Typography variant="caption" className={classes.timePeriod}>{`${formatDateForPeriod(
+      <Typography variant="caption" className={cx(PDF_BLOCK_CLASS_NAME, classes.timePeriod)}>{`${formatDateForPeriod(
         project.timePeriod.from,
       )} - ${formatDateForPeriod(project.timePeriod.to)}`}</Typography>
       {!shortView && (
         <>
-          <Typography className={classes.description}>{project.description}</Typography>
-          <Box>
+          <Typography className={cx(PDF_BLOCK_CLASS_NAME, classes.description)}>{project.description}</Typography>
+          <Box className={PDF_BLOCK_CLASS_NAME}>
             <Typography variant="caption" className={classes.fontWeightBold}>
               Responsibilities:{' '}
             </Typography>
             <Typography variant="caption">{project.responsibilities}</Typography>
           </Box>
-          <Box>
+          <Box className={PDF_BLOCK_CLASS_NAME}>
             <Typography variant="caption" className={classes.fontWeightBold}>
               Team Size:{' '}
             </Typography>
@@ -49,13 +52,13 @@ const WorkingProject = ({ project, shortView }) => {
           </Box>
         </>
       )}
-      <Box>
+      <Box className={PDF_BLOCK_CLASS_NAME}>
         <Typography variant="caption" className={classes.fontWeightBold}>
           Technologies:{' '}
         </Typography>
         <Typography variant="caption">{project.technologies.join(', ')}.</Typography>
       </Box>
-      <Divider className={classes.divider} />
+      <Divider className={cx(PDF_BLOCK_CLASS_NAME, classes.divider)} />
     </Box>
   );
 };
