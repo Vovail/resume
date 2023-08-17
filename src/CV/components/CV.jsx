@@ -45,7 +45,7 @@ const CV = ({ profile }) => {
   const cvRef = useRef();
   const setCvRefState = useSetRecoilState(cvRefState);
   const isFileDownloading = useRecoilValue(isFileDownloadingState);
-  const { firstName, secondName, position, skills, photo, contacts, summary, experience, languages } = useMemo(
+  const { firstName, secondName, position, skills, photo, contacts, summary, experience, languages, education } = useMemo(
     () => profile || {},
     [profile],
   );
@@ -99,6 +99,23 @@ const CV = ({ profile }) => {
                   ))}
                 </Box>
               </Paper>
+              {!!education.length && <Paper component="section" className={cx(PDF_BLOCK_CLASS_NAME, classes.paper)} elevation={0}>
+                <Typography variant="h6" className={classes.title}>
+                  Education
+                </Typography>
+                <Box display="flex" flexDirection='column'>
+                  {education.map((item, i) => (
+                    <React.Fragment key={JSON.stringify(item)}>
+                      <Box mb={1} display={'flex'} flexDirection={'column'}>
+                        <Typography>{item.institution}</Typography>
+                        <Typography variant="caption"><strong>Specialty:</strong> {item.specialty}</Typography>
+                        <Typography variant="caption"><strong>Degree:</strong> {item.degree}</Typography>
+                      </Box>
+                      {i + 1 < education.length && <Divider className={classes.verticalDivider} orientation="vertical" flexItem />}
+                    </React.Fragment>
+                  ))}
+                </Box>
+              </Paper>}
             </Box>
           </Box>
         </Box>
